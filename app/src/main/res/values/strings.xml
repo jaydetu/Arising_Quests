@@ -1,3 +1,14 @@
 <resources>
     <string name="app_name">Arising Quests</string>
+    <string name="importance_high">High</string>
+    <string name="importance_mid">Mid</string>
+    <string name="importance_low">Low</string>
+    <string name="due_date">Due Date</string>
+    <string name="description">Description</string>
+    <string name="cancel">Cancel</string>
+    <string name="save">Save</string>
+    <string name="title">Title</string>
+    <string name="importance">Importance</string>
+    <string name="edit_task_header">Task</string>
+
 </resources>

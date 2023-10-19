@@ -2,4 +2,15 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="importance_high">#C71508</color>
+    <color name="importance_mid">#D27522</color>
+    <color name="importance_low">#E1B816</color>
+    <color name="olivine">#ABBE6F</color>
+    <color name="dark_moss_green">#606c38</color>
+    <color name="pakistan_green">#283618</color>
+    <color name="cornsilk">#FEFAE0</color>
+    <color name="earth_yellow">#DDA15E</color>
+    <color name="tigers_eye">#BC6C25</color>
+    <color name="error_red">#D90000</color>
+    <color name="background_box_tint">#CCDEDDDB</color>
 </resources>

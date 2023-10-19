@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cornsilk"
+    tools:context=".EditTaskActivity">
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/edit_task_header"
+                android:textAlignment="center"
+                android:textColor="@color/pakistan_green"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="?attr/textInputFilledStyle"
+                android:id="@+id/filledTextFieldTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:boxBackgroundColor="@color/background_box_tint"
+                android:hint="@string/title"
+                tools:ignore="ExtraText">
+                app:helperTextEnabled="true"
+                app:helperText="@string/helper_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="271dp"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="textPersonName|textCapWords" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:gravity="center">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/importance"
+                android:textSize="16dp" />
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="5dp"
+            android:gravity="center_horizontal">
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:checkedButton="@+id/radio_button_1"
+                android:orientation="horizontal">
+
+                <RadioButton
+                    android:id="@+id/radio_button_high"
+                    android:layout_width="88dp"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/importance_high"
+                    android:text="@string/importance_high" />
+
+                <RadioButton
+                    android:id="@+id/radio_button_mid"
+                    android:layout_width="94dp"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/importance_mid"
+                    android:text="@string/importance_mid" />
+
+                <RadioButton
+                    android:id="@+id/radio_button_low"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:buttonTint="@color/importance_low"
+                    android:text="@string/importance_low" />
+            </RadioGroup>
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="?attr/textInputFilledStyle"
+                android:id="@+id/filledTextFieldDueDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/due_date"
+                app:boxBackgroundColor="@color/background_box_tint"
+                tools:ignore="ExtraText">
+                app:helperTextEnabled="true"
+                app:helperText="@string/helper_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionNext"
+                    android:inputType="date"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/filledTextFieldDescription"
+                style="?attr/textInputFilledStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/description"
+                app:boxBackgroundColor="@color/background_box_tint"
+                tools:ignore="ExtraText">
+                app:helperTextEnabled="true"
+                app:helperText="@string/helper_text">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:imeOptions="actionDone"
+                    android:inputType="text|textLongMessage|textImeMultiLine|textMultiLine" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </TableRow>
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal">
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Substups?"
+                android:textSize="20sp" />
+        </TableRow>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:gravity="center_horizontal">
+
+            <Button
+                android:id="@+id/elevatedButtonCancel"
+                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:onClick="clearClicked"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/pakistan_green"
+                android:text="@string/cancel"
+                android:textColor="@color/cornsilk"
+                app:icon="@drawable/baseline_cancel_24"
+                app:iconTint="@color/background_box_tint"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/elevatedButtonSave"
+                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:onClick="saveClicked"
+                android:layout_margin="5dp"
+                android:backgroundTint="@color/pakistan_green"
+                android:text="@string/save"
+                android:textColor="@color/cornsilk"
+                app:icon="@drawable/baseline_save_24"
+                app:iconTint="@color/background_box_tint"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+        </LinearLayout>
+    </TableLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

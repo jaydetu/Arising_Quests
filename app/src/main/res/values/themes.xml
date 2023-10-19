@@ -2,8 +2,18 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.ArisingQuests" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <!--<item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/dark_moss_green</item>
+        <item name="colorSecondary">@color/pakistan_green</item>
+        <item name="colorOnSurface">@color/olivine</item>
+        <item name="colorError">@color/error_red</item>
+        <item name="colorOnBackground">@color/cornsilk</item>
+
     </style>
 
     <style name="Theme.ArisingQuests" parent="Base.Theme.ArisingQuests" />
+
+    <style name="ThemeOverlay.App.TextInputLayout" parent="">
+
+    </style>
 </resources>
