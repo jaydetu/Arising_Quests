@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/linearLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cornsilk"
+    android:gravity="center_horizontal"
+    tools:context=".SubstepDialog">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal|center_vertical"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/add_substeps"
+            android:textAlignment="center"
+            android:textColor="@color/pakistan_green"
+            android:textSize="24sp"
+            android:textStyle="bold" />
+
+        <View
+            android:id="@+id/divider"
+            android:layout_width="325dp"
+            android:layout_height="2dp"
+            android:layout_marginBottom="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/filledTextFieldStep"
+            style="?attr/textInputFilledStyle"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:hint="@string/enter_step"
+            app:boxBackgroundColor="@color/background_box_tint"
+            tools:ignore="ExtraText">
+            app:helperTextEnabled="true"
+            app:helperText="@string/helper_text">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/textInputStep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:imeOptions="actionDone"
+                android:inputType="text|textLongMessage|textImeMultiLine|textMultiLine" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <LinearLayout
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:gravity="end"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/elevatedButtonSave2"
+                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/dark_moss_green"
+                android:onClick="clearStepClicked"
+                android:text="@string/cancel"
+                android:textColor="@color/cornsilk"
+                app:icon="@drawable/baseline_cancel_24"
+                app:iconTint="@color/background_box_tint"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+
+            <Button
+                android:id="@+id/elevatedButtonSave"
+                style="@style/Widget.Material3.Button.ElevatedButton.Icon"
+                android:layout_width="50dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="5dp"
+                android:layout_weight="1"
+                android:backgroundTint="@color/dark_moss_green"
+                android:onClick="addStepClicked"
+                android:text="@string/add"
+                android:textColor="@color/cornsilk"
+                app:icon="@drawable/baseline_add_24"
+                app:iconTint="@color/background_box_tint"
+                tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
+        </LinearLayout>
+    </LinearLayout>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
