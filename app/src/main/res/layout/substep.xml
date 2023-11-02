@@ -9,40 +9,8 @@
     android:orientation="vertical"
     tools:context=".Substep">
 
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/filledTextFieldStep"
-        style="?attr/textInputFilledStyle"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/stepRecycler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="@string/description"
-        app:boxBackgroundColor="@color/background_box_tint"
-        tools:ignore="ExtraText">
-        app:helperTextEnabled="true"
-        app:helperText="@string/helper_text">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/textInputStep"
-            android:layout_width="362dp"
-            android:layout_height="wrap_content"
-            android:imeOptions="actionDone"
-            android:inputType="text|textLongMessage|textImeMultiLine|textMultiLine" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <Button
-        android:id="@+id/elevatedButtonSave"
-        style="@style/Widget.Material3.Button.ElevatedButton.Icon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="5dp"
-        android:backgroundTint="@color/pakistan_green"
-        android:onClick="saveClicked"
-        android:text="@string/save"
-        android:textColor="@color/cornsilk"
-        app:icon="@drawable/baseline_save_24"
-        app:iconTint="@color/background_box_tint"
-        tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
-
-
+        android:layout_height="match_parent" />
 </LinearLayout>

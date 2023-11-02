@@ -1,23 +1,28 @@
 package edu.ucdenver.questingcrew.arisingquests;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.fragment.app.DialogFragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.view.ViewGroup;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
 import edu.ucdenver.questingcrew.arisingquests.databinding.ActivityEditTaskBinding;
-import edu.ucdenver.questingcrew.arisingquests.databinding.ActivityMainBinding;
-import edu.ucdenver.questingcrew.arisingquests.databinding.DialogSubstepBinding;
 
 public class EditTaskActivity extends AppCompatActivity {
 
@@ -26,14 +31,54 @@ public class EditTaskActivity extends AppCompatActivity {
     private SubstepsAdapter substepAdapter;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    //protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
+    //public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i("info", "start on create edit task");
         super.onCreate(savedInstanceState);
         binding = ActivityEditTaskBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
+        binding.editTaskToolbar.inflateMenu(R.menu.menu_edit_task);
 
-        Log.i("info", "finished binding");
+        binding.editTaskToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                int id = item.getItemId();
+
+                if (id == R.id.action_cancel){
+                    clearClicked(view);
+                    exitTask(view);
+                }
+                else if (id == R.id.action_save){
+                    saveClicked(view);
+                    exitTask(view);
+                }
+                return false;
+            }
+        });
+
+
+        binding.elevatedButtonAddSubsteps.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                addSubstep(view);
+            }
+        });
+        binding.elevatedButtonSave.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                saveClicked(view);
+            }
+        });
+        binding.elevatedButtonCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+                clearClicked(view);
+            }
+        });
+
+
 
         substepList = new ArrayList<Substep>();
 
@@ -41,38 +86,35 @@ public class EditTaskActivity extends AppCompatActivity {
 
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        RecyclerView substepRecycler = binding.substepRecyclerView;
+        RecyclerView substepRecycler = binding.substepView.stepRecycler;
         substepRecycler.setLayoutManager(layoutManager);
-        substepRecycler.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        //substepRecycler.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         substepRecycler.setAdapter(substepAdapter);
 
-
-
     }
 
-    /*
-    // Get input text
-    val inputText = filledTextField.editText?.text.toString()
 
-    filledTextField.editText?.doOnTextChanged { inputText, _, _, _ ->
-        // Respond to input text change
-    }
-     */
-
-
+    // create and show substep dialog fragment
     public void addSubstep(View view){
+        FragmentManager manager = getSupportFragmentManager();
         SubstepDialog substepsDialog = new SubstepDialog();
-        substepsDialog.show(getSupportFragmentManager(), "");
-
+        Log.i("info", "create substep dialog");
+        substepsDialog.show(manager, "");
+        Log.i("info", "launch dialog");
     }
 
-    public void addStep(Substep step){
-        substepList.add(step);
+
+
+    //
+    public void addStep(Substep substep){
+        Log.i("info", "added step");
+        substepList.add(substep);
         substepAdapter.notifyDataSetChanged();
     }
 
 
     public void saveClicked(View view){
+        //Toast.makeText(this, "Save clicked", Toast.LENGTH_SHORT).show();
         // get input
         String title = binding.textInputTitle.getText().toString();
         String importance;
@@ -111,6 +153,11 @@ public class EditTaskActivity extends AppCompatActivity {
         binding.radioButtonLow.setChecked(false);
         binding.textInputDueDate.setText("");
         binding.textInputDescription.setText("");
+    }
+
+    public void exitTask(View view){
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
     }
 
 }

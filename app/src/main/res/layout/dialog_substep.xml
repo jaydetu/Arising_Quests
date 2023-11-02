@@ -60,29 +60,27 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/elevatedButtonSave2"
+                android:id="@+id/elevatedButtonCancelStep"
                 style="@style/Widget.Material3.Button.ElevatedButton.Icon"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/dark_moss_green"
-                android:onClick="clearStepClicked"
-                android:text="@string/cancel"
+                android:text="@string/Clear"
                 android:textColor="@color/cornsilk"
                 app:icon="@drawable/baseline_cancel_24"
                 app:iconTint="@color/background_box_tint"
                 tools:ignore="TextContrastCheck,TouchTargetSizeCheck" />
 
             <Button
-                android:id="@+id/elevatedButtonSave"
+                android:id="@+id/elevatedButtonSaveStep"
                 style="@style/Widget.Material3.Button.ElevatedButton.Icon"
                 android:layout_width="50dp"
                 android:layout_height="wrap_content"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
                 android:backgroundTint="@color/dark_moss_green"
-                android:onClick="addStepClicked"
                 android:text="@string/add"
                 android:textColor="@color/cornsilk"
                 app:icon="@drawable/baseline_add_24"

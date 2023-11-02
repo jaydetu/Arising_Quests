@@ -13,5 +13,6 @@
     <string name="add_substeps">Add Substep</string>
     <string name="enter_step">Enter Substep</string>
     <string name="add">Add</string>
+    <string name="Clear">clear</string>
 
 </resources>
