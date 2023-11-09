@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/mentalHealthCardImg"
+        android:layout_width="129dp"
+        android:layout_height="129dp"
+        android:contentDescription="@string/cardImg"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="273dp"
+        tools:srcCompat="@drawable/mentalCardImg" />
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbarMain"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        tools:ignore="MissingConstraints" />
+
+    <ImageView
+        android:id="@+id/takeThisImage"
+        android:layout_width="142dp"
+        android:layout_height="129dp"
+        android:contentDescription="@string/takeThisimg"
+        tools:ignore="MissingConstraints,ImageContrastCheck"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="64dp"
+        tools:srcCompat="@drawable/take_this_img" />
+
+    <ImageView
+        android:id="@+id/lifeLineImg"
+        android:layout_width="158dp"
+        android:layout_height="133dp"
+        android:contentDescription="@string/lifeLineImg"
+        tools:ignore="ImageContrastCheck,MissingConstraints"
+        tools:layout_editor_absoluteX="253dp"
+        tools:layout_editor_absoluteY="500dp"
+        tools:srcCompat="@drawable/crisisLifelineImg" />
+
+    <Button
+        android:id="@+id/takeThisLinkButton"
+        android:layout_width="129dp"
+        android:layout_height="70dp"
+        android:text="@string/takeThisButton"
+        tools:ignore="MissingConstraints,TextSizeCheck"
+        tools:layout_editor_absoluteX="265dp"
+        tools:layout_editor_absoluteY="203dp" />
+
+    <Button
+        android:id="@+id/mentalHealthCardButton"
+        android:layout_width="135dp"
+        android:layout_height="67dp"
+        android:text="@string/buttonCard"
+        tools:ignore="DuplicateSpeakableTextCheck,MissingConstraints"
+        tools:layout_editor_absoluteX="259dp"
+        tools:layout_editor_absoluteY="416dp" />
+
+    <Button
+        android:id="@+id/lifeLineButton"
+        android:layout_width="145dp"
+        android:layout_height="82dp"
+        android:text="@string/lifeLineButton"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="256dp"
+        tools:layout_editor_absoluteY="644dp" />
+
+    <EditText
+        android:id="@+id/takeThisDesc"
+        android:layout_width="228dp"
+        android:layout_height="179dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="64dp"
+        tools:text="Take This is a mental Health Resource for developers that help find the support they need in a challenging environment" />
+
+    <EditText
+        android:id="@+id/mentalHealthCardDesc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="287dp"
+        tools:text="Mental Health Card gives a list of how to make yourself feel better with little activities such as reading, draw, etc." />
+
+    <EditText
+        android:id="@+id/lifelineDesc"
+        android:layout_width="224dp"
+        android:layout_height="165dp"
+        android:autofillHints=""
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:minHeight="48dp"
+        tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck"
+        tools:layout_editor_absoluteX="2dp"
+        tools:layout_editor_absoluteY="500dp"
+        tools:text="988 Suicide & Crisis Lifeline helps 24/7 with free and confidential support for people in distress for you or loved ones in the United States" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
