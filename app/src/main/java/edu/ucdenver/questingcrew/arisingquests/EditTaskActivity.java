@@ -5,12 +5,15 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.fragment.app.DialogFragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -19,6 +22,9 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.ArrayList;
 
@@ -33,7 +39,6 @@ public class EditTaskActivity extends AppCompatActivity {
     @Override
     //protected void onCreate(Bundle savedInstanceState) {
     public void onCreate(Bundle savedInstanceState) {
-    //public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         Log.i("info", "start on create edit task");
         super.onCreate(savedInstanceState);
         binding = ActivityEditTaskBinding.inflate(getLayoutInflater());
@@ -78,18 +83,59 @@ public class EditTaskActivity extends AppCompatActivity {
             }
         });
 
+        // Add mask to textInputDueDate to view input as MM/DD/YYYY
+        binding.textInputDueDate.addTextChangedListener(new TextWatcher(){
+            private String current = "";
+            private String mmddyyyy = "MMDDYYYY";
+
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                // Do nothing
+            }
+
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().equals(current)) {
+                    String clean = s.toString().replaceAll("[^\\d.]|\\.", "");
+                    String cleanC = current.replaceAll("[^\\d.]|\\.", "");
+
+                    int cl = clean.length();
+                    int sel = cl;
+                    for (int i = 2; i <= cl && i < 6; i += 2) {
+                        sel++;
+                    }
+                    if (clean.equals(cleanC)) sel--;
+
+                    if (clean.length() < 8 ){
+                        clean = clean + mmddyyyy.substring(clean.length());
+                    }
+
+                    clean = String.format("%s/%s/%s", clean.substring(0, 2),
+                            clean.substring(2, 4),
+                            clean.substring(4, 8));
+                    sel = sel < 0 ? 0 : sel;
+                    current = clean;
+                    binding.textInputDueDate.setText(current);
+                    binding.textInputDueDate.setSelection(sel < current.length() ? sel : current.length());
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                // Do nothing
+            }
+        });
 
 
-        substepList = new ArrayList<Substep>();
+
+        substepList = new ArrayList<>();
 
         substepAdapter = new SubstepsAdapter(this, substepList);
 
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
-        RecyclerView substepRecycler = binding.substepView.stepRecycler;
-        substepRecycler.setLayoutManager(layoutManager);
-        //substepRecycler.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
-        substepRecycler.setAdapter(substepAdapter);
+        binding.content.recyclerView.setLayoutManager(layoutManager);
+        //binding.content.recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
+        binding.content.recyclerView.setAdapter(substepAdapter);
 
     }
 
@@ -104,12 +150,13 @@ public class EditTaskActivity extends AppCompatActivity {
     }
 
 
-
     //
     public void addStep(Substep substep){
         Log.i("info", "added step");
-        substepList.add(substep);
-        substepAdapter.notifyDataSetChanged();
+        //substepList.add(substep);
+        //substepAdapter.notifyDataSetChanged();
+        //binding.content.recyclerView.invalidate();
+        substepAdapter.addItem(substep);
     }
 
 
@@ -136,15 +183,12 @@ public class EditTaskActivity extends AppCompatActivity {
 
         // create new Task object
         Task task = new Task(title, importance, dueDate, description);
+        Toast.makeText(this, "You clicked on Save Contact Button", Toast.LENGTH_LONG).show();
     }
 
 
 
-    public void save(){
-
-    }
-
-    // clar layout
+    // clear layout
 
     public void clearClicked(View view){
         binding.textInputTitle.setText("");

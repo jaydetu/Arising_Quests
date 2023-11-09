@@ -3,6 +3,7 @@ package edu.ucdenver.questingcrew.arisingquests;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -13,11 +14,11 @@ import java.util.ArrayList;
 public class SubstepsAdapter extends RecyclerView.Adapter<SubstepsAdapter.ListItemHolder>{
 
     private EditTaskActivity editTaskActivity;
-    private ArrayList<Substep> list;
+    private ArrayList<Substep> substepList;
 
-    public SubstepsAdapter (EditTaskActivity editTaskActivity, ArrayList<Substep> list){
+    public SubstepsAdapter (EditTaskActivity editTaskActivity, ArrayList<Substep> substepList){
         this.editTaskActivity = editTaskActivity;
-        this.list = list;
+        this.substepList = substepList;
 
     }
 
@@ -30,31 +31,39 @@ public class SubstepsAdapter extends RecyclerView.Adapter<SubstepsAdapter.ListIt
 
     @Override
     public void onBindViewHolder(@NonNull ListItemHolder holder, int position) {
-        Substep substep = list.get(position);
-        holder.textViewName.setText(substep.getStep());
+        Substep substep = substepList.get(position);
+        holder.textViewSubstepName.setText(substep.getStep());
     }
 
     @Override
     public int getItemCount() {
-        return list.size();
+        return substepList.size();
 
+    }
+
+    public void addItem(Substep substep) {
+        substepList.add(substep);
+        notifyItemInserted(substepList.indexOf(substep));
     }
 
 
 
     public class ListItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        private TextView textViewName;
+        private TextView textViewSubstepName;
 
         public ListItemHolder(View itemView) {
             super(itemView);
-            textViewName = itemView.findViewById(R.id.textInputStep);
-            textViewName.setClickable(true);
-            textViewName.setOnClickListener(this);
+            textViewSubstepName = itemView.findViewById(R.id.textViewStepName);
+            textViewSubstepName.setClickable(false);
+            textViewSubstepName.setOnClickListener(this);
         }
 
         public void onClick(View view){
 
+
         }
+
+
     }
 }
