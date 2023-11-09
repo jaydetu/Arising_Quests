@@ -12,5 +12,6 @@
     <color name="earth_yellow">#DDA15E</color>
     <color name="tigers_eye">#BC6C25</color>
     <color name="error_red">#D90000</color>
-    <color name="background_box_tint">#CCDEDDDB</color>
+    <color name="background_box_tint">#EFEFE3</color>
+    <color name="pastel_green">#D1E1BF</color>
 </resources>
