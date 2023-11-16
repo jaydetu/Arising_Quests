@@ -27,6 +27,7 @@ import android.widget.Toast;
 import com.google.android.material.datepicker.MaterialDatePicker;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import edu.ucdenver.questingcrew.arisingquests.databinding.ActivityEditTaskBinding;
 
@@ -34,6 +35,7 @@ public class EditTaskActivity extends AppCompatActivity {
 
     private ActivityEditTaskBinding binding;
     private ArrayList<Substep> substepList;
+    private Substep[] substepArray;
     private SubstepsAdapter substepAdapter;
 
     @Override
@@ -181,6 +183,7 @@ public class EditTaskActivity extends AppCompatActivity {
             importance = "None";
         }
 
+        substepArray = substepList.toArray(new Substep[substepList.size()]);
         // create new Task object
         Task task = new Task(title, importance, dueDate, description);
         Toast.makeText(this, "You clicked on Save Contact Button", Toast.LENGTH_LONG).show();

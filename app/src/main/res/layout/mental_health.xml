@@ -110,7 +110,7 @@
         tools:ignore="LabelFor,MissingConstraints,SpeakableTextPresentCheck"
         tools:layout_editor_absoluteX="2dp"
         tools:layout_editor_absoluteY="500dp"
-        tools:text="988 Suicide & Crisis Lifeline helps 24/7 with free and confidential support for people in distress for you or loved ones in the United States" />
+        tools:text="988 Suicide and Crisis Lifeline helps 24/7 with free and confidential support for people in distress for you or loved ones in the United States" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
