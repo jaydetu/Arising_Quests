@@ -5,8 +5,15 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
-
-@Database(entities = {Task.class}, version = 1)
+/*
+ * TaskDatabase is an abstract class that creates a room database.
+ * It makes sure that only one instance of it exists (no duplicates).
+ * It includes two tables: Task (parent) and Substep (child).
+ * And declares abstract DAO for both Task and Substep to access/edit each table.
+ * @author Jayde Tu
+ * @version 11302023
+ */
+@Database(entities = {Task.class, Substep.class}, version = 2)
 public abstract class TaskDatabase extends RoomDatabase{
     private static final String DATABASE_NAME = "task.db";
     private static TaskDatabase taskDatabase;
@@ -17,9 +24,11 @@ public abstract class TaskDatabase extends RoomDatabase{
         if (taskDatabase == null) {
             taskDatabase = Room.databaseBuilder(context, TaskDatabase.class, DATABASE_NAME)
                     .allowMainThreadQueries()
+                    .fallbackToDestructiveMigration()
                     .build();
         }
         return taskDatabase;
     }
-    public abstract TaskDao contactDao();
+    public abstract TaskDao taskDao();
+    public abstract SubstepDao substepDao();
 }

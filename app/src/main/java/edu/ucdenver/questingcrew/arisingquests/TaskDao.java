@@ -1,19 +1,20 @@
 package edu.ucdenver.questingcrew.arisingquests;
 
-import androidx.room.Dao;
-import androidx.room.Delete;
-import androidx.room.Insert;
-import androidx.room.OnConflictStrategy;
-import androidx.room.Query;
-import androidx.room.Update;
+import androidx.room.*;
 
 import java.util.List;
 
 import javax.security.auth.Subject;
 
+/*
+ * TaskDao is an interface that declares methods to insert, update, delete, and query (select/get) data from TaskDatabase.
+ * The methods are then defined/generated automatically.
+ * @author Jayde Tu
+ * @version 11302023
+ */
 @Dao
 public interface TaskDao {
-    /*
+
     @Query("SELECT * FROM Task WHERE id = :id")
     public Task getTask(long id);
 
@@ -25,8 +26,6 @@ public interface TaskDao {
 
     @Query("SELECT * FROM Task order by dueDate")
     public Task[] getAllTasksByDate();
-
-     */
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     public long addTask(Task task);

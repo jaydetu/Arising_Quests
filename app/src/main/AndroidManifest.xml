@@ -13,13 +13,10 @@
         android:theme="@style/Theme.ArisingQuests"
         tools:targetApi="31" >
         <activity
-            android:name=".EditTaskActivity"
+            android:name=".EditTaskDialog"
             android:label="Edit Task"
             android:exported="false"
             android:parentActivityName=".MainActivity"/>
-        <activity
-            android:name=".EditTask"
-            android:exported="false" />
         <activity
             android:name=".MainActivity"
             android:exported="true" >

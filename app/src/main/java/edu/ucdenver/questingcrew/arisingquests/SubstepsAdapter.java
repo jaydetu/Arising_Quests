@@ -1,26 +1,31 @@
 package edu.ucdenver.questingcrew.arisingquests;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
-
+/*
+ * SubstepsAdapter is the recycler adapter for the list of substeps in a task.
+ * It shows each substep.
+ * When the step is clicked, it allows you to edit the step (by calling SubstepDialog that's populated with existing details).
+ * @author Jayde Tu
+ * @version 11302023
+ */
 public class SubstepsAdapter extends RecyclerView.Adapter<SubstepsAdapter.ListItemHolder>{
 
-    private EditTaskActivity editTaskActivity;
-    private ArrayList<Substep> substepList;
+    private MainActivity mainActivity;
+    private Substep[] substepList;
 
-    public SubstepsAdapter (EditTaskActivity editTaskActivity, ArrayList<Substep> substepList){
-        this.editTaskActivity = editTaskActivity;
+    public SubstepsAdapter (MainActivity mainActivity, Substep[] substepList){
+        this.mainActivity = mainActivity;
         this.substepList = substepList;
-
     }
+
 
     @NonNull
     @Override
@@ -31,22 +36,21 @@ public class SubstepsAdapter extends RecyclerView.Adapter<SubstepsAdapter.ListIt
 
     @Override
     public void onBindViewHolder(@NonNull ListItemHolder holder, int position) {
-        Substep substep = substepList.get(position);
-        holder.textViewSubstepName.setText(substep.getStep());
+        if (substepList != null) {
+            Substep substep = substepList[position];
+            holder.textViewSubstepName.setText(substep.getStep());
+        }
     }
 
     @Override
     public int getItemCount() {
-        return substepList.size();
-
+        return substepList.length;
     }
 
-    public void addItem(Substep substep) {
-        substepList.add(substep);
-        notifyItemInserted(substepList.indexOf(substep));
+    // get new substep list to update recycler
+    public void updateItemList(Substep[] changedSubsteps){
+        substepList = changedSubsteps;
     }
-
-
 
     public class ListItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
@@ -60,8 +64,9 @@ public class SubstepsAdapter extends RecyclerView.Adapter<SubstepsAdapter.ListIt
         }
 
         public void onClick(View view){
-
-
+            int position = getAdapterPosition();
+            Substep substep = substepList[position];
+            mainActivity.editStep(substep, position);
         }
 
 

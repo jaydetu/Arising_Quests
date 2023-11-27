@@ -7,19 +7,23 @@
     <string name="description">Description</string>
     <string name="cancel">Cancel</string>
     <string name="save">Save</string>
-    <string name="title">Title</string>
+    <string name="title">Title (Required)</string>
     <string name="importance">Importance</string>
     <string name="edit_task_header">Task</string>
     <string name="add_substeps">Add Substep</string>
     <string name="enter_step">Enter Substep</string>
     <string name="add">Add</string>
-    <string name="Clear">clear</string>
+    <string name="Clear">Clear</string>
     <string name="lifeLineButton">988lifeline.org</string>
     <string name="lifeLineImg">LifeLine</string>
     <string name="buttonCard">mentalhealthhelp.carrd.co/#feelbetter</string>
     <string name="cardImg">cardImage</string>
     <string name="takeThisimg">takeThisImg</string>
     <string name="takeThisButton">takethis.org</string>
+    <string name="_988_suicide_lifeline">988 Suicide Lifeline</string>
+    <string name="mental_health_card">Mental Health Card</string>
+    <string name="take_this">Take This</string>
+    <string name="_988_lifeline">988 LifeLine</string>
 
 
 </resources>
