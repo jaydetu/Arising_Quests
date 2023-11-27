@@ -7,17 +7,17 @@
 
     <ImageView
         android:id="@+id/mentalHealthCardImg"
-        android:layout_width="129dp"
-        android:layout_height="129dp"
+        android:layout_width="112dp"
+        android:layout_height="112dp"
         android:layout_marginStart="282dp"
         android:layout_marginTop="3dp"
         android:layout_marginEnd="1dp"
-        android:contentDescription="@string/cardImg"
+        android:contentDescription="@string/mental_health_card"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="@+id/toolbarMain"
         app:layout_constraintTop_toBottomOf="@+id/take_this_btn"
         tools:ignore="ImageContrastCheck"
-        tools:srcCompat="@drawable/mentalCardImg" />
+        tools:srcCompat="@drawable/mental_card_img" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarMain"
@@ -35,10 +35,10 @@
 
     <ImageView
         android:id="@+id/take_this_img"
-        android:layout_width="142dp"
-        android:layout_height="129dp"
+        android:layout_width="117dp"
+        android:layout_height="104dp"
         android:layout_marginTop="64dp"
-        android:contentDescription="@string/takeThisimg"
+        android:contentDescription="@string/take_this"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/toolbarMain"
         tools:ignore="ImageContrastCheck"
@@ -48,37 +48,40 @@
         android:id="@+id/lifeLineImg"
         android:layout_width="158dp"
         android:layout_height="133dp"
-        android:layout_marginBottom="21dp"
-        android:contentDescription="@string/lifeLineImg"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="32dp"
+        android:contentDescription="@string/_988_lifeline"
         app:layout_constraintBottom_toTopOf="@+id/lifeLineButton"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:srcCompat="@drawable/crisisLifelineImg" />
+        tools:srcCompat="@drawable/crisis_lifeline_img" />
 
     <Button
         android:id="@+id/take_this_btn"
         android:layout_width="164dp"
         android:layout_height="66dp"
-        android:layout_marginTop="139dp"
-        android:text="@string/takeThisButton"
+        android:layout_marginTop="104dp"
+        android:text="@string/take_this"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/take_this_img" />
 
     <Button
         android:id="@+id/mentalHealthCardButton"
-        android:layout_width="135dp"
-        android:layout_height="67dp"
+        android:layout_width="167dp"
+        android:layout_height="63dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="17dp"
-        android:text="@string/buttonCard"
+        android:text="@string/mental_health_card"
         app:layout_constraintBottom_toTopOf="@+id/lifeLineImg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mentalHealthCardImg" />
 
     <Button
         android:id="@+id/lifeLineButton"
-        android:layout_width="145dp"
-        android:layout_height="82dp"
-        android:text="@string/lifeLineButton"
+        android:layout_width="167dp"
+        android:layout_height="85dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="68dp"
+        android:text="@string/_988_suicide_lifeline"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -86,7 +89,7 @@
         android:id="@+id/take_this_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="88dp"
         android:layout_marginEnd="85dp"
         android:text="@string/take_this"
         android:textSize="32sp"
@@ -99,7 +102,7 @@
         android:id="@+id/mental_health_card_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="216dp"
         android:layout_marginEnd="10dp"
         android:text="@string/mental_health_card"
         android:textSize="32sp"
@@ -112,11 +115,12 @@
         android:id="@+id/lifeline_text"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="128dp"
         android:layout_marginEnd="79dp"
         android:text="@string/_988_lifeline"
         android:textSize="32sp"
         app:layout_constraintEnd_toStartOf="@+id/lifeLineImg"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/mental_health_card_text" />
 
