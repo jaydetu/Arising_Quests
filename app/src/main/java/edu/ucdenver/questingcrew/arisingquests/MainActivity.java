@@ -119,6 +119,10 @@ public class MainActivity extends AppCompatActivity {
         SubstepDialog substepsDialog = new SubstepDialog(substep, position);
         substepsDialog.show(fragmentManager, "substep");
     }
-
-
+    public void goToCalendarTask(View view){
+        Intent calendarTaskActivity = new Intent(this, CalendarActivity.class);
+        startActivity(calendarTaskActivity);
+    }
 }
+
+

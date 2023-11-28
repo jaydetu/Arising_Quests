@@ -24,6 +24,12 @@
     <string name="mental_health_card">Mental Health Card</string>
     <string name="take_this">Take This</string>
     <string name="_988_lifeline">988 LifeLine</string>
-
+    <string name= "Sunday">Su</string>
+    <string name= "Monday">Mo</string>
+    <string name= "Tuesday">Tu</string>
+    <string name= "Wednesday">We</string>
+    <string name= "Thursday">Th</string>
+    <string name= "Friday">Fr</string>
+    <string name= "Saturday">Sa</string>
 
 </resources>
