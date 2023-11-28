@@ -3,11 +3,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.homepage"
+    namespace = "edu.ucdenver.questingcrew.arisingquests"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.homepage"
+        applicationId = "edu.ucdenver.questingcrew.arisingquests"
         minSdk = 26
         targetSdk = 33
         versionCode = 1
