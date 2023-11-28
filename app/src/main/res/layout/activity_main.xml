@@ -30,6 +30,12 @@
             android:layout_height="wrap_content"
             android:onClick="goToEditTask"
             android:text="go to edit task activity" />
+        <Button
+            android:id="@+id/mentalHealthButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:onClick="goToMentalHealth"
+            android:text="go to mental health" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

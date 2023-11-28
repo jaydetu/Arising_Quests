@@ -3,13 +3,17 @@ package edu.ucdenver.questingcrew.arisingquests;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class mentalHealth extends AppCompatActivity {
+
+public class MentalHealth extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.i("info", "in mental health onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mental_health);
 

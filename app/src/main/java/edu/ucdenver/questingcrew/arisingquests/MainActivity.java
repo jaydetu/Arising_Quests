@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.content.Intent;
 
 import edu.ucdenver.questingcrew.arisingquests.databinding.ActivityMainBinding;
 
@@ -90,6 +91,14 @@ public class MainActivity extends AppCompatActivity {
         editTaskDialog.show(fragmentManager, "task");
     }
 
+    public void goToMentalHealth(View view){
+        Log.i("info", "before starting mental health intent");
+        Intent mentalHealth = new Intent(this, MentalHealth.class);
+        Log.i("info", "after declaring mental health intent");
+        startActivity(mentalHealth);
+        Log.i("info", "after calling mental health intent");
+    }
+
     public void editThisTask(View view, Task task){
         //pass Task (and its id) user wants to edit from the database
         editTaskDialog = new EditTaskDialog(this, taskDatabase, task, task.getId());
@@ -110,4 +119,6 @@ public class MainActivity extends AppCompatActivity {
         SubstepDialog substepsDialog = new SubstepDialog(substep, position);
         substepsDialog.show(fragmentManager, "substep");
     }
+
+
 }
