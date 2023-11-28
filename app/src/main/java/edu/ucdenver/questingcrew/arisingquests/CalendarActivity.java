@@ -25,7 +25,11 @@ import edu.ucdenver.questingcrew.arisingquests.databinding.ActivityCalendarBindi
 public class CalendarActivity extends AppCompatActivity {
 
     private ActivityCalendarBinding binding;
+    private int monthCounter;
+    private int yearCounter;
+    private Calendar calendar;
 
+    private TaskDatabase taskDatabase;
 
     @Override
     //protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +50,10 @@ public class CalendarActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
+
+
 
         //SETTING UP THE CALENDAR IE MAKING THE BUTTONS AND WEEKS FORMAT CORRECTLY
 
@@ -103,7 +111,7 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         //getting information from the default android calendar about the current day year...
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         int CurrentDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
         //each one must have a clicked one as well. The clicked int is on the current date when the calendar is started but the user can change that
         int ClickedDay = Calendar.getInstance().get(Calendar.DAY_OF_MONTH);
@@ -211,11 +219,11 @@ public class CalendarActivity extends AppCompatActivity {
         DateHeader.setText(HeaderString);
         DateHeader.setTextSize(30);
 
-/* THINGS TO CHANGE MONTH TO PREVIOUS OR NEXT MONTH
-            //when the user goes back months month counter keeps track back one month = -- forward a month = ++
+        // THINGS TO CHANGE MONTH TO PREVIOUS OR NEXT MONTH
+        //when the user goes back months month counter keeps track back one month = -- forward a month = ++
         //same with year
-        int monthCounter = CurrentMonth;
-        int yearCounter = CurrentYear;
+         monthCounter = CurrentMonth;
+         yearCounter = CurrentYear;
         Button NextMonthButton = binding.NextMonthButton;
         Button PreviousMonthButton = binding.PreviousMonthButton;
         NextMonthButton.setOnClickListener(new View.OnClickListener() {
@@ -225,7 +233,7 @@ public class CalendarActivity extends AppCompatActivity {
                 if(monthCounter == 11){
                     //if dedcember increase year and change month to january
                     yearCounter++;
-                    calendar.set(Calendar.YEAR,yearCounter );
+                    calendar.set(Calendar.YEAR, yearCounter);
                     calendar.set(Calendar.MONTH, 0);
                     monthCounter = 0;
                 }
@@ -233,7 +241,9 @@ public class CalendarActivity extends AppCompatActivity {
                     monthCounter++;
                     calendar.set(Calendar.MONTH, monthCounter);
                 }
-                //onCreate(new Bundle());
+                //restarting activity
+                finish();
+                startActivity(getIntent());
             }
         });
         PreviousMonthButton.setOnClickListener(new View.OnClickListener() {
@@ -249,17 +259,15 @@ public class CalendarActivity extends AppCompatActivity {
                     monthCounter--;
                     calendar.set(Calendar.MONTH, monthCounter);
                 }
-                updateCalendar();
+                //restarting activity
+                finish();
+                startActivity(getIntent());
             }
         });
 
-        static void updateCalendar(Calendar calendar, int monthCounter){
-            calendar.set(Calendar.MONTH, monthCounter);
-            //onCreate(new Bundle());
-        }
 
 
-*/
+
 
 
         //Making the Days in the current month
@@ -414,6 +422,43 @@ public class CalendarActivity extends AppCompatActivity {
             });
         }
 
+        //GETTING INFO FROM DATABASE IE THE TASKS AND THEIR DATES
+        taskDatabase = TaskDatabase.getInstance(this);
+
+        //creating task list "tasks" sorted by date
+        Task[] tasks = taskDatabase.taskDao().getAllTasksByDate();
+
+        for(int i= 0; i < tasks.length; i++){
+            Log.d("TASKDATE", "Task " +tasks[i].getTitle() + "Date " + tasks[i].getDueDate());
+            String taskDate = tasks[i].getDueDate();
+            //spliting the date into month, day, year
+            //will make integers later
+            if(taskDate != null) {
+                String[] taskDateArray = (taskDate.split("/"));
+                Log.d("TASKSPLIT", taskDateArray[0]+ " " +taskDateArray[1]  + " "+ taskDateArray[2] + " First day of month " + firstDayofMonth + " day of the event " + Integer.parseInt(taskDateArray[1]));
+                if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
+                    //finding index for the day of the task
+                    //two minus -1s because they both start from zero
+                    int dayindex = (firstDayofMonth-1) + (Integer.parseInt(taskDateArray[1])-1);
+                    //setting the background color of the day of the task to something else
+                    Log.d("FORMAT", tasks[i].getImportance());
+                    if(tasks[i].getImportance() == "High") {
+                        days[dayindex].setBackgroundColor(Color.RED);
+                    }
+                    else if(tasks[i].getImportance() == "Medium"){
+                        days[dayindex].setBackgroundColor(Color.YELLOW);
+
+                    }
+                    else if(tasks[i].getImportance() == "Low"){
+                        days[dayindex].setBackgroundColor(Color.GREEN);
+
+                    }
+                    else{
+                        days[dayindex].setBackgroundColor(Color.RED);
+                    }
+                }
+            }
+        }
 
 
         //end of oncreate method
