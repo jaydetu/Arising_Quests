@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 
 import java.time.Month;
 import java.util.Calendar;
+import java.util.Objects;
 
 import edu.ucdenver.questingcrew.arisingquests.databinding.ActivityCalendarBinding;
 
@@ -434,27 +435,33 @@ public class CalendarActivity extends AppCompatActivity {
             //spliting the date into month, day, year
             //will make integers later
             if(taskDate != null) {
-                String[] taskDateArray = (taskDate.split("/"));
-                Log.d("TASKSPLIT", taskDateArray[0]+ " " +taskDateArray[1]  + " "+ taskDateArray[2] + " First day of month " + firstDayofMonth + " day of the event " + Integer.parseInt(taskDateArray[1]));
-                if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
-                    //finding index for the day of the task
-                    //two minus -1s because they both start from zero
-                    int dayindex = (firstDayofMonth-1) + (Integer.parseInt(taskDateArray[1])-1);
-                    //setting the background color of the day of the task to something else
-                    Log.d("FORMAT", tasks[i].getImportance());
-                    if(tasks[i].getImportance() == "High") {
-                        days[dayindex].setBackgroundColor(Color.RED);
+                if (taskDate != null && taskDate.length() > 0) {
+                    String[] taskDateArray = new String[3];
+                    if (taskDate.contains("/")){
+                        taskDateArray = (taskDate.split("/"));
+                    } else {
+                        taskDateArray[0] = taskDate.substring(0, 2);
+                        taskDateArray[1] = taskDate.substring(taskDate.length() - 6, taskDate.length() - 4);
+                        taskDateArray[2] = taskDate.substring(taskDate.length() - 4);
                     }
-                    else if(tasks[i].getImportance() == "Medium"){
-                        days[dayindex].setBackgroundColor(Color.YELLOW);
+                    Log.d("TASKSPLIT", taskDateArray[0]+ " " +taskDateArray[1]  + " "+ taskDateArray[2] + " First day of month " + firstDayofMonth + " day of the event " + Integer.parseInt(taskDateArray[1]));
+                    if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
+                        //finding index for the day of the task
+                        //two minus -1s because they both start from zero
+                        int dayindex = (firstDayofMonth - 1) + (Integer.parseInt(taskDateArray[1]) - 1);
+                        //setting the background color of the day of the task to something else
+                        Log.d("FORMAT", tasks[i].getImportance());
+                        if (Objects.equals(tasks[i].getImportance(), "High")) {
+                            days[dayindex].setBackgroundColor(Color.RED);
+                        } else if (Objects.equals(tasks[i].getImportance(), "Medium")) {
+                            days[dayindex].setBackgroundColor(Color.YELLOW);
 
-                    }
-                    else if(tasks[i].getImportance() == "Low"){
-                        days[dayindex].setBackgroundColor(Color.GREEN);
+                        } else if (Objects.equals(tasks[i].getImportance(), "Low")) {
+                            days[dayindex].setBackgroundColor(Color.GREEN);
 
-                    }
-                    else{
-                        days[dayindex].setBackgroundColor(Color.RED);
+                        } else {
+                            days[dayindex].setBackgroundColor(Color.RED);
+                        }
                     }
                 }
             }
