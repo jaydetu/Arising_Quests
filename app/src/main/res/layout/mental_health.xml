@@ -10,6 +10,7 @@
         android:layout_width="287dp"
         android:layout_height="48dp"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="587dp"
         android:layout_marginEnd="64dp"
         android:layout_marginBottom="96dp"
         android:layout_weight="1"
@@ -17,19 +18,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbarMain" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp" />
 
     <Button
         android:id="@+id/take_this_btn"
