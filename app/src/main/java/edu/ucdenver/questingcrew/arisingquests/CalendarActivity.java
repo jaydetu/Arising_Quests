@@ -29,7 +29,6 @@ public class CalendarActivity extends AppCompatActivity {
     private int monthCounter;
     private int yearCounter;
     private Calendar calendar;
-
     private TaskDatabase taskDatabase;
 
     @Override
@@ -224,6 +223,7 @@ public class CalendarActivity extends AppCompatActivity {
                 assignDays( monthCounter,yearCounter, days);
             }
         });
+
         PreviousMonthButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -239,9 +239,7 @@ public class CalendarActivity extends AppCompatActivity {
                 }
                 //rebuild calendar
                 assignDays( monthCounter,yearCounter, days);
-                /*TextView CurrentMonthText = binding.CurrentMonthText;
-                CurrentMonthText.setText(monthCounter);
-                CurrentMonthText.setTextSize(30);*/
+
             }
         });
 
@@ -294,6 +292,7 @@ public class CalendarActivity extends AppCompatActivity {
 
             }
         }
+
         //the reason we need if on sunday is because the previous month wont need to be shown if the month starts on sunday
         //could use else but using if in case of errors
         //implementing LATER
@@ -402,6 +401,7 @@ public class CalendarActivity extends AppCompatActivity {
         setTasks(CurrentMonth, CurrentYear, firstDayofMonth,days);
 
         //end of oncreate method
+
     }
 
     private void setTasks(int CurrentMonth, int CurrentYear, int firstDayofMonth,Button[] days){ //GETTING INFO FROM DATABASE IE THE TASKS AND THEIR DATES
@@ -411,13 +411,13 @@ public class CalendarActivity extends AppCompatActivity {
         Task[] tasks = taskDatabase.taskDao().getAllTasksByDate();
 
         for(int i= 0; i < tasks.length; i++){
-            Log.d("TASKDATE", "Task " +tasks[i].getTitle() + "Date " + tasks[i].getDueDate());
+           Log.d("TASKDATE", "Task " +tasks[i].getTitle() + "Date " + tasks[i].getDueDate());
             String taskDate = tasks[i].getDueDate();
             //spliting the date into month, day, year
-            //will make integers later
-            if(taskDate != null) {
+
+             //will make integers later
+            if(taskDate != null && taskDate.length() > 0) {
                 String[] taskDateArray = (taskDate.split("/"));
-                Log.d("TASKSPLIT", taskDateArray[0]+ " " +taskDateArray[1]  + " "+ taskDateArray[2] + " First day of month " + firstDayofMonth + " day of the event " + Integer.parseInt(taskDateArray[1]));
 
                 if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth  && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
                     //finding index for the day of the task
@@ -441,9 +441,17 @@ public class CalendarActivity extends AppCompatActivity {
                         //#FF8C6060
                         days[dayindex].setBackgroundColor(Color.parseColor("#FF6B2A21"));
                     }
+
+
                 }
+
+
             }
-        }}
+
+
+        }
+
+    }
     public void exitTask(View view){
         Intent mainActivity = new Intent(this, MainActivity.class);
         startActivity(mainActivity);
