@@ -5,12 +5,20 @@
 
 
     <item
+        android:id="@+id/action_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:icon="@drawable/baseline_add_box_24"
+        android:title="Add"
+        app:showAsAction="ifRoom" />
+    <item
         android:id="@+id/action_cancel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:icon="@drawable/baseline_clear_24"
         android:title="Cancel"
         app:showAsAction="ifRoom" />
+
 
 
 
