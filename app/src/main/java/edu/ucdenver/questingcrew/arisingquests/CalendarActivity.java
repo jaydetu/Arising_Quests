@@ -428,15 +428,23 @@ public class CalendarActivity extends AppCompatActivity {
 
         //creating task list "tasks" sorted by date
         Task[] tasks = taskDatabase.taskDao().getAllTasksByDate();
-        if (tasks == null){
+        Log.d("info", "Task #'s" + tasks.length);
+        if (tasks != null){
             for(int i= 0; i < tasks.length; i++) {
                 Log.d("TASKDATE", "Task " + tasks[i].getTitle() + "Date " + tasks[i].getDueDate());
                 String taskDate = tasks[i].getDueDate();
                 //spliting the date into month, day, year
                 //will make integers later
-                if (taskDate != null) {
-                    String[] taskDateArray = (taskDate.split("/"));
-                    Log.d("TASKSPLIT", taskDateArray[0] + " " + taskDateArray[1] + " " + taskDateArray[2] + " First day of month " + firstDayofMonth + " day of the event " + Integer.parseInt(taskDateArray[1]));
+                if (taskDate != null && taskDate.length() > 0) {
+                    String[] taskDateArray = new String[3];
+                    if (taskDate.contains("/")){
+                        taskDateArray = (taskDate.split("/"));
+                    } else {
+                        taskDateArray[0] = taskDate.substring(0, 2);
+                        taskDateArray[1] = taskDate.substring(taskDate.length() - 6, taskDate.length() - 4);
+                        taskDateArray[2] = taskDate.substring(taskDate.length() - 4);
+                    }
+                    //Log.d("TASKSPLIT", taskDateArray[0] + " " + taskDateArray[1] + " " + taskDateArray[2] + " First day of month " + firstDayofMonth + " day of the event " + Integer.parseInt(taskDateArray[1]));
                     if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
                         //finding index for the day of the task
                         //two minus -1s because they both start from zero
@@ -447,10 +455,8 @@ public class CalendarActivity extends AppCompatActivity {
                             days[dayindex].setBackgroundColor(Color.RED);
                         } else if (Objects.equals(tasks[i].getImportance(), "Medium")) {
                             days[dayindex].setBackgroundColor(Color.YELLOW);
-
                         } else if (Objects.equals(tasks[i].getImportance(), "Low")) {
                             days[dayindex].setBackgroundColor(Color.GREEN);
-
                         } else {
                             days[dayindex].setBackgroundColor(Color.GRAY);
                         }
