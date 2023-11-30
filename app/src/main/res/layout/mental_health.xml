@@ -11,12 +11,12 @@
         android:layout_height="48dp"
         android:layout_marginStart="60dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="140dp"
         android:layout_weight="1"
         android:text="@string/home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.562"
         app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.appcompat.widget.Toolbar
@@ -39,10 +39,9 @@
         android:layout_marginEnd="124dp"
         android:text="@string/take_this"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="229dp" />
+        tools:layout_editor_absoluteY="235dp" />
 
     <Button
         android:id="@+id/mentalHealthCardButton"
@@ -52,10 +51,9 @@
         android:layout_marginEnd="122dp"
         android:text="@string/mental_health_card"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="349dp" />
+        tools:layout_editor_absoluteY="354dp" />
 
     <Button
         android:id="@+id/lifeLineButton"
@@ -65,18 +63,18 @@
         android:layout_marginEnd="121dp"
         android:text="@string/_988_suicide_lifeline"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="460dp" />
+        tools:layout_editor_absoluteY="461dp" />
 
     <TextView
         android:id="@+id/mentalHealthTextView"
         android:layout_width="218dp"
         android:layout_height="44dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="74dp"
-        android:layout_marginEnd="97dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="113dp"
         android:text="@string/mental_resources"
         android:textSize="32sp"
         android:textStyle="bold"
