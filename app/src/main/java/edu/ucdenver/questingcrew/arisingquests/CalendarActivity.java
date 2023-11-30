@@ -29,7 +29,6 @@ public class CalendarActivity extends AppCompatActivity {
     private int monthCounter;
     private int yearCounter;
     private Calendar calendar;
-
     private TaskDatabase taskDatabase;
 
     @Override
@@ -40,9 +39,7 @@ public class CalendarActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         binding.CalendarToolbar.inflateMenu(R.menu.menu_calendar_activity);
-
         binding.CalendarToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-
             @Override
             public boolean onMenuItemClick(MenuItem item) {
                 int id = item.getItemId();
@@ -51,11 +48,12 @@ public class CalendarActivity extends AppCompatActivity {
                     exitTask(view);
                 }
                 if (id == R.id.action_add) {
-
+                    addTask();
                 }
                 return false;
             }
         });
+
 
 
 
@@ -183,24 +181,18 @@ public class CalendarActivity extends AppCompatActivity {
                 "July", "August", "September", "October", "November", "December"
         };
         TextCurrentMonth = monthNames[CurrentMonth];
-
         //displaying the date header
         String HeaderString = TextCurrentDay + ", " + TextCurrentMonth + " " + CurrentDay + ", " + CurrentYear;
         DateHeader.setText(HeaderString);
         DateHeader.setTextSize(30);
-
         //Displaying Current Calendar month at the bottom
         TextView BottomMonth = binding.CurrentMonthText;
         BottomMonth.setTextSize(30);
         BottomMonth.setText(String.valueOf(monthCounter));
-
         //array of months
-
         String displayBottomMonth = monthNames[CurrentMonth] + ", " + CurrentYear;
         // Setting the month text based on the current month
         BottomMonth.setText(displayBottomMonth);
-
-
 
         // THINGS TO CHANGE MONTH TO PREVIOUS OR NEXT MONTH
         //when the user goes back months month counter keeps track back one month = -- forward a month = ++
@@ -224,6 +216,7 @@ public class CalendarActivity extends AppCompatActivity {
                     monthCounter++;
                     calendar.set(Calendar.MONTH, monthCounter);
                 }
+                //restarting activity
                 //rebuild calendar
                 assignDays( monthCounter,yearCounter, days);
             }
@@ -241,13 +234,16 @@ public class CalendarActivity extends AppCompatActivity {
                     monthCounter--;
                     calendar.set(Calendar.MONTH, monthCounter);
                 }
-                //rebuild calendar
-                assignDays( monthCounter,yearCounter, days);
-                /*TextView CurrentMonthText = binding.CurrentMonthText;
-                CurrentMonthText.setText(monthCounter);
-                CurrentMonthText.setTextSize(30);*/
+                //restarting activity
+                finish();
+                startActivity(getIntent());
             }
         });
+
+
+
+
+
 
         //Making the Days in the current month
         //index to go 1 through 31(or however many days the month has)
@@ -255,7 +251,7 @@ public class CalendarActivity extends AppCompatActivity {
         //this is just another version of firstdayofmonth so that we don't change the value of firstday of month
         int daysForFirstWeek = firstDayofMonth;
         //this is just to keep the index of the last day of the month ie the last few days of the previous month + all the days in the next month
-        int DayAfterLastDayInMonth = daysForFirstWeek+DaysInMonth;
+        int DayAfterLastDayInMonth = daysForFirstWeek+DaysInMonth;;
         int Sunday = 1;
         //sunday for readability
         int arrayIndex = daysForFirstWeek;
@@ -401,69 +397,54 @@ public class CalendarActivity extends AppCompatActivity {
             });
         }
 
-
         //setting tasks on days
         setTasks(CurrentMonth, CurrentYear, firstDayofMonth,days);
 
         //end of oncreate method
     }
 
-
     private void setTasks(int CurrentMonth, int CurrentYear, int firstDayofMonth,Button[] days){ //GETTING INFO FROM DATABASE IE THE TASKS AND THEIR DATES
+        //GETTING INFO FROM DATABASE IE THE TASKS AND THEIR DATES
         taskDatabase = TaskDatabase.getInstance(this);
 
         //creating task list "tasks" sorted by date
         Task[] tasks = taskDatabase.taskDao().getAllTasksByDate();
-
-        for(int i= 0; i < tasks.length; i++){
-            String taskDate = tasks[i].getDueDate();
-            //spliting the date into month, day, year
-            //will make integers later
-
-            if(taskDate != null) {
-                String[] taskDateArray = (taskDate.split("/"));
-
-                if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth  && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
-                    //finding index for the day of the task
-                    //two minus -1s because they both start from zero
-                    int dayindex = (firstDayofMonth-1) + (Integer.parseInt(taskDateArray[1])-1);
-
-                    //setting the background color of the day of the task to something else
-                    Log.d("FORMAT", tasks[i].getImportance());
-                    if(Objects.equals(tasks[i].getImportance(), "High")) {
-                        days[dayindex].setBackgroundColor(Color.parseColor("#FF6B2A21"));
+        Log.d("info", "Task #'s" + tasks.length);
+        if (tasks != null){
+            for(int i= 0; i < tasks.length; i++) {
+                Log.d("TASKDATE", "Task " + tasks[i].getTitle() + "Date " + tasks[i].getDueDate());
+                String taskDate = tasks[i].getDueDate();
+                //spliting the date into month, day, year
+                //will make integers later
+                if (taskDate != null && taskDate.length() > 7 && !taskDate.contains("M")) {
+                    String[] taskDateArray = new String[3];
+                    if (taskDate.contains("/")){
+                        taskDateArray = (taskDate.split("/"));
+                    } else {
+                        taskDateArray[0] = taskDate.substring(0, 2);
+                        taskDateArray[1] = taskDate.substring(taskDate.length() - 6, taskDate.length() - 4);
+                        taskDateArray[2] = taskDate.substring(taskDate.length() - 4);
                     }
-                    else if(Objects.equals(tasks[i].getImportance(), "Mid")){
-                        days[dayindex].setBackgroundColor(Color.parseColor("#FFD5631F"));
-
+                    //Log.i("TASKSPLIT", taskDateArray[0]+ " " +taskDateArray[1]  + " "+ taskDateArray[2] + " First day of month " + firstDayofMonth + " day of the event " + Integer.parseInt(taskDateArray[1]));
+                    if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
+                        //finding index for the day of the task
+                        //two minus -1s because they both start from zero
+                        int dayindex = (firstDayofMonth - 1) + (Integer.parseInt(taskDateArray[1]) - 1);
+                        //setting the background color of the day of the task to something else
+                        //Log.i("FORMAT", tasks[i].getImportance());
+                        if (Objects.equals(tasks[i].getImportance(), "High")) {
+                            days[dayindex].setBackgroundColor(Color.parseColor("#FF6B2A21"));
+                        } else if (Objects.equals(tasks[i].getImportance(), "Mid")) {
+                            days[dayindex].setBackgroundColor(Color.parseColor("#FFD5631F"));
+                        } else if (Objects.equals(tasks[i].getImportance(), "Low")) {
+                            days[dayindex].setBackgroundColor(Color.parseColor("#FFFFC34C"));
+                        } else {
+                            days[dayindex].setBackgroundColor(Color.GRAY);
+                        }
                     }
-                    else if(Objects.equals(tasks[i].getImportance(), "Low")){
-                        days[dayindex].setBackgroundColor(Color.parseColor("#FFFFC34C"));
-
-                    }
-                    else{
-                        days[dayindex].setBackgroundColor(Color.GRAY);
-                    }
-
-
-
                 }
-
-
-
-
             }
-
-
-
         }
-
-
-        }
-
-    public void exitTask(View view){
-        Intent mainActivity = new Intent(this, MainActivity.class);
-        startActivity(mainActivity);
     }
     private void assignDays(int monthCounter, int yearCounter, Button[] days){
         int CurrentDay = calendar.get(Calendar.DAY_OF_MONTH);
@@ -653,8 +634,15 @@ public class CalendarActivity extends AppCompatActivity {
 
         //if there are any tasks in the next month
         setTasks(monthCounter, yearCounter, firstDayofMonth,days);
+    }
 
-
+    public void exitTask(View view){
+        Intent mainActivity = new Intent(this, MainActivity.class);
+        startActivity(mainActivity);
+    }
+    public void addTask(){
+        EditTaskDialog editTaskDialog = new EditTaskDialog(taskDatabase);
+        editTaskDialog.show(getSupportFragmentManager(), "task");
     }
 
 }

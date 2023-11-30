@@ -48,6 +48,13 @@ public class EditTaskDialog extends DialogFragment {
     private long currentTaskID;
     private boolean setTask1;
 
+    public EditTaskDialog(TaskDatabase taskDatabase) {
+        this.mainActivity = (MainActivity) getActivity();
+        this.taskDatabase = taskDatabase;
+        this.currentTask = new Task(); //create empty task to populate later
+        this.currentTaskID = taskDatabase.taskDao().addTask(currentTask); //get task ID of task currently being created
+        editingTask = false;
+    }
     // Constructor when creating a new task
     public EditTaskDialog(MainActivity mainActivity, TaskDatabase taskDatabase) {
         this.mainActivity = mainActivity;

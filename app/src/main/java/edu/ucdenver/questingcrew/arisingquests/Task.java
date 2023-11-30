@@ -46,6 +46,14 @@ public class Task {
         this.dueDate = dueDate;
         this.description = description;
     }
+    public Task(@NonNull String title, String dueDate, String description){
+        this.title = title;
+        this.dueDate = dueDate;
+        this.description = description;
+    }
+    public Task(@NonNull String title){
+        this.title = title;
+    }
 
     // getters and setters
     public long getId() {

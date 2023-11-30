@@ -33,6 +33,9 @@ public class MainActivity extends AppCompatActivity {
         Log.i("info", "getting instance of db");
         taskDatabase = TaskDatabase.getInstance(this);
         fragmentManager = getSupportFragmentManager();
+
+        Task task = new Task("Unimportant task example", "11292023", "Test");
+        editTask1ID = taskDatabase.taskDao().addTask(task);
     }
 
     public long getEditTask1ID(){
@@ -120,23 +123,19 @@ public class MainActivity extends AppCompatActivity {
         editTaskDialog.show(fragmentManager, "task");
         firstClick = false;
     }
-
     public void editThisTask(View view, Task task){
         //pass Task (and its id) user wants to edit from the database
         editTaskDialog = new EditTaskDialog(this, taskDatabase, task, task.getId());
         editTaskDialog.show(fragmentManager, "task");
     }
-
     public void passUpdateStep(Substep step, int position){
         Log.i("info", "main passing step: " + step.getStep());
         editTaskDialog.editStep(step, position);
     }
-
     public void passAddStep(Substep step) {
         Log.i("info", "main passing step: " + step.getStep());
         editTaskDialog.addStep(step);
     }
-
     public void editStep(Substep substep, int position) {
         SubstepDialog substepsDialog = new SubstepDialog(substep, position);
         substepsDialog.show(fragmentManager, "substep");
