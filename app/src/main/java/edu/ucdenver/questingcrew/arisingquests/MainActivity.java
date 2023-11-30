@@ -1,5 +1,6 @@
 package edu.ucdenver.questingcrew.arisingquests;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -18,6 +19,8 @@ public class MainActivity extends AppCompatActivity {
     private TaskDatabase taskDatabase;
     private EditTaskDialog editTaskDialog;
     private FragmentManager fragmentManager;
+    private long editTask1ID;
+    private boolean firstClick = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,10 @@ public class MainActivity extends AppCompatActivity {
         Log.i("info", "getting instance of db");
         taskDatabase = TaskDatabase.getInstance(this);
         fragmentManager = getSupportFragmentManager();
+    }
+
+    public long getEditTask1ID(){
+        return editTask1ID;
     }
 
     public void onResume() {
@@ -97,6 +104,21 @@ public class MainActivity extends AppCompatActivity {
         Log.i("info", "after declaring mental health intent");
         startActivity(mentalHealth);
         Log.i("info", "after calling mental health intent");
+    }
+
+    public void editTask1(View view){
+        Task task;
+        if (firstClick) {
+            task = new Task("Study for Final", "High", "11302023", "For Java app development class");
+            editTask1ID = taskDatabase.taskDao().addTask(task);
+            //Log.i("info", "Created task: " + task1.getTitle());
+        } else {
+            task = taskDatabase.taskDao().getTask(editTask1ID);
+        }
+        //Log.i("info", "Task: " + task1.getTitle());
+        editTaskDialog = new EditTaskDialog(this, taskDatabase, task, editTask1ID, firstClick);
+        editTaskDialog.show(fragmentManager, "task");
+        firstClick = false;
     }
 
     public void editThisTask(View view, Task task){

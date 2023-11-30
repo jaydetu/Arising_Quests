@@ -15,8 +15,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
@@ -44,6 +46,7 @@ public class EditTaskDialog extends DialogFragment {
     private Boolean editingTask;
     private Task currentTask;
     private long currentTaskID;
+    private boolean setTask1;
 
     // Constructor when creating a new task
     public EditTaskDialog(MainActivity mainActivity, TaskDatabase taskDatabase) {
@@ -67,6 +70,16 @@ public class EditTaskDialog extends DialogFragment {
         this.taskDatabase = taskDatabase;
         this.currentTask = task;
         this.currentTaskID = taskID;
+        editingTask = true;
+        Log.i("info", "Task: " + task.getTitle());
+        Log.i("info", "Task: " + currentTask.getTitle());
+    }
+    public EditTaskDialog(MainActivity mainActivity, TaskDatabase taskDatabase, Task task, long taskID, boolean setTask1) {
+        this.mainActivity = mainActivity;
+        this.taskDatabase = taskDatabase;
+        this.currentTask = task;
+        this.currentTaskID = taskID;
+        this.setTask1 = setTask1;
         editingTask = true;
     }
 
@@ -165,12 +178,27 @@ public class EditTaskDialog extends DialogFragment {
         //binding.content.recyclerView.addItemDecoration(new DividerItemDecoration(this, LinearLayoutManager.VERTICAL));
         binding.content.recyclerView.setAdapter(substepAdapter);
 
+        if (setTask1){
+            Substep substep1 = new Substep("Dialogs and Fragments", currentTaskID);
+            Substep substep2 = new Substep("Room Database", currentTaskID);
+            Substep substep3 = new Substep("Android Life Cycle", currentTaskID);
+            addStep(substep1);
+            addStep(substep2);
+            addStep(substep3);
+        }
         if (editingTask) {
+            substepList = taskDatabase.substepDao().getTaskSubsteps(currentTaskID);
+            substepAdapter.updateItemList(substepList);
             setTask();
         }
         return builder.create();
     }
 
+    public void setTask1Substeps(){
+        Substep[] tempList = substepList;
+        tempList = taskDatabase.substepDao().getTaskSubsteps(currentTaskID);
+        substepList = tempList;
+    }
     // update substepList from database to pass to substep adapter
     public void updateSubstepList(){
         substepList = taskDatabase.substepDao().getTaskSubsteps(currentTaskID);
