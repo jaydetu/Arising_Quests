@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,13 +19,11 @@ public class MentalHealth extends AppCompatActivity {
 
         Button homeButton = findViewById(R.id.homeButton);
 
-        homeButton.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent intent = new Intent(MentalHealth.this, MainActivity.class);
+        homeButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MentalHealth.this, MainActivity.class);
 
-                startActivity(intent);
-                finish();
-            }
+            startActivity(intent);
+            finish();
         });
 
         Button takelinkbtn = findViewById(R.id.take_this_btn);
