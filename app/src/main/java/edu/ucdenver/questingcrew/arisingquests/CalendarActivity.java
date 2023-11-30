@@ -18,6 +18,7 @@ import org.w3c.dom.Text;
 
 import java.time.Month;
 import java.util.Calendar;
+import java.util.Objects;
 
 import edu.ucdenver.questingcrew.arisingquests.databinding.ActivityCalendarBinding;
 
@@ -173,51 +174,29 @@ public class CalendarActivity extends AppCompatActivity {
         //now using  switch statement to convert the month numbers into Strings
         String TextCurrentMonth;
 
-        switch (CurrentMonth) {
-            case 0:
-                TextCurrentMonth = "January";
-                break;
-            case 1:
-                TextCurrentMonth = "February";
-                break;
-            case 2:
-                TextCurrentMonth = "March";
-                break;
-            case 3:
-                TextCurrentMonth = "April";
-                break;
-            case 4:
-                TextCurrentMonth = "May";
-                break;
-            case 5:
-                TextCurrentMonth = "June";
-                break;
-            case 6:
-                TextCurrentMonth = "July";
-                break;
-            case 7:
-                TextCurrentMonth = "August";
-                break;
-            case 8:
-                TextCurrentMonth = "September";
-                break;
-            case 9:
-                TextCurrentMonth = "October";
-                break;
-            case 10:
-                TextCurrentMonth = "November";
-                break;
-            case 11:
-                TextCurrentMonth = "December";
-                break;
-            default:
-                TextCurrentMonth = "error";
-                break;
-        }
+        String[] monthNames = {
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+        };
+        TextCurrentMonth = monthNames[CurrentMonth];
+
         //displaying the date header
         String HeaderString = TextCurrentDay + ", " + TextCurrentMonth + " " + CurrentDay + ", " + CurrentYear;
         DateHeader.setText(HeaderString);
         DateHeader.setTextSize(30);
+
+        //Displaying Current Calendar month at the bottom
+        TextView BottomMonth = binding.CurrentMonthText;
+        BottomMonth.setTextSize(30);
+        BottomMonth.setText(String.valueOf(monthCounter));
+
+        //array of months
+
+        String displayBottomMonth = monthNames[CurrentMonth] + ", " + CurrentYear;
+    // Setting the month text based on the current month
+        BottomMonth.setText(displayBottomMonth);
+
+
 
         // THINGS TO CHANGE MONTH TO PREVIOUS OR NEXT MONTH
         //when the user goes back months month counter keeps track back one month = -- forward a month = ++
@@ -241,9 +220,8 @@ public class CalendarActivity extends AppCompatActivity {
                     monthCounter++;
                     calendar.set(Calendar.MONTH, monthCounter);
                 }
-                //restarting activity
-                finish();
-                startActivity(getIntent());
+                //rebuild calendar
+                assignDays( monthCounter,yearCounter, days);
             }
         });
         PreviousMonthButton.setOnClickListener(new View.OnClickListener() {
@@ -259,16 +237,13 @@ public class CalendarActivity extends AppCompatActivity {
                     monthCounter--;
                     calendar.set(Calendar.MONTH, monthCounter);
                 }
-                //restarting activity
-                finish();
-                startActivity(getIntent());
+                //rebuild calendar
+                assignDays( monthCounter,yearCounter, days);
+                /*TextView CurrentMonthText = binding.CurrentMonthText;
+                CurrentMonthText.setText(monthCounter);
+                CurrentMonthText.setTextSize(30);*/
             }
         });
-
-
-
-
-
 
         //Making the Days in the current month
         //index to go 1 through 31(or however many days the month has)
@@ -422,7 +397,14 @@ public class CalendarActivity extends AppCompatActivity {
             });
         }
 
-        //GETTING INFO FROM DATABASE IE THE TASKS AND THEIR DATES
+
+        //setting tasks on days
+        setTasks(CurrentMonth, CurrentYear, firstDayofMonth,days);
+
+        //end of oncreate method
+    }
+
+    private void setTasks(int CurrentMonth, int CurrentYear, int firstDayofMonth,Button[] days){ //GETTING INFO FROM DATABASE IE THE TASKS AND THEIR DATES
         taskDatabase = TaskDatabase.getInstance(this);
 
         //creating task list "tasks" sorted by date
@@ -436,36 +418,226 @@ public class CalendarActivity extends AppCompatActivity {
             if(taskDate != null) {
                 String[] taskDateArray = (taskDate.split("/"));
                 Log.d("TASKSPLIT", taskDateArray[0]+ " " +taskDateArray[1]  + " "+ taskDateArray[2] + " First day of month " + firstDayofMonth + " day of the event " + Integer.parseInt(taskDateArray[1]));
-                if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
+
+                if (Integer.parseInt(taskDateArray[0]) - 1 == CurrentMonth  && Integer.parseInt(taskDateArray[2]) == CurrentYear) {
                     //finding index for the day of the task
                     //two minus -1s because they both start from zero
                     int dayindex = (firstDayofMonth-1) + (Integer.parseInt(taskDateArray[1])-1);
+
                     //setting the background color of the day of the task to something else
                     Log.d("FORMAT", tasks[i].getImportance());
-                    if(tasks[i].getImportance() == "High") {
-                        days[dayindex].setBackgroundColor(Color.RED);
+                    if(Objects.equals(tasks[i].getImportance(), "High")) {
+                        days[dayindex].setBackgroundColor(Color.parseColor("#FF6B2A21"));
                     }
-                    else if(tasks[i].getImportance() == "Medium"){
-                        days[dayindex].setBackgroundColor(Color.YELLOW);
+                    else if(Objects.equals(tasks[i].getImportance(), "Mid")){
+                        days[dayindex].setBackgroundColor(Color.parseColor("#FFD5631F"));
 
                     }
-                    else if(tasks[i].getImportance() == "Low"){
-                        days[dayindex].setBackgroundColor(Color.GREEN);
+                    else if(Objects.equals(tasks[i].getImportance(), "Low")){
+                        days[dayindex].setBackgroundColor(Color.parseColor("#FFFFC34C"));
 
                     }
                     else{
-                        days[dayindex].setBackgroundColor(Color.RED);
+                        //#FF8C6060
+                        days[dayindex].setBackgroundColor(Color.parseColor("#FF6B2A21"));
                     }
                 }
             }
-        }
-
-
-        //end of oncreate method
-    }
+        }}
     public void exitTask(View view){
         Intent mainActivity = new Intent(this, MainActivity.class);
         startActivity(mainActivity);
+    }
+    private void assignDays(int monthCounter, int yearCounter, Button[] days){
+        int CurrentDay = calendar.get(Calendar.DAY_OF_MONTH);
+        //each one must have a clicked one as well. The clicked int is on the current date when the calendar is started but the user can change that
+        int ClickedDay = calendar.get(Calendar.DAY_OF_MONTH);
+        //Months start at 0 ie november = 10
+        int CurrentMonth = calendar.get(Calendar.MONTH);
+        int ClickedMonth = calendar.get(Calendar.MONTH);
+
+        int CurrentYear = calendar.get(Calendar.YEAR);
+        int ClickedYear = calendar.get(Calendar.YEAR);
+        //gets days in month by using actualmaximum
+
+
+        int DaysInMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        Log.d("DAYSTHINGS", "Month "+ CurrentMonth +" has " + DaysInMonth + " days");
+        //what day is it sunday monday etc..
+        int CurrentDayofWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        //setting the calednar to the first day of month to retrieve the first day of the week in the month
+        calendar.set(Calendar.DAY_OF_MONTH, 1);
+        int firstDayofMonth = calendar.get(Calendar.DAY_OF_WEEK);
+        Log.d("FIRST DAYT", "F" + firstDayofMonth);
+
+
+        //returning the calednar to the current day
+        calendar.set(Calendar.YEAR, yearCounter);
+        calendar.set(Calendar.MONTH, monthCounter);
+
+        //Making the Days in the current month
+        //index to go 1 through 31(or however many days the month has)
+        int DayNumber = 1;
+        //this is just another version of firstdayofmonth so that we don't change the value of firstday of month
+        int daysForFirstWeek = firstDayofMonth;
+        //this is just to keep the index of the last day of the month ie the last few days of the previous month + all the days in the next month
+        int DayAfterLastDayInMonth = daysForFirstWeek+DaysInMonth;;
+        Log.d("IDKANYMORE", "days first week" + daysForFirstWeek + "Days in month " + DaysInMonth);
+        int Sunday = 1;
+        //sunday for readability
+        int arrayIndex = daysForFirstWeek;
+        Log.d("arrayval", "Array value: " + arrayIndex );
+        //Sunday thing didn't matter
+        //the index in the lib for days starts at 1 for some reason even though months start at 0 irl
+            for(int i = arrayIndex; i < DayAfterLastDayInMonth; i++){
+                Log.d("where is I" , "I " + i);
+                //highlight if the day is the clicked day or the current day
+                if(CurrentMonth == ClickedMonth && CurrentDay == ClickedDay && CurrentYear == ClickedYear){
+                    //the -1 is because the days were all one ahead of the real calendar
+                    days[i-1].setBackgroundColor(Color.parseColor("#FF606C38"));
+                    days[i-1].setTextColor(Color.WHITE);
+                }
+                else{
+                    days[i-1].setBackgroundColor(Color.TRANSPARENT);
+                    days[i-1].setTextColor(Color.BLACK);
+                }
+                //array linked to each day in the days list
+                //this new array will hold the exact date including month and year for each day
+                int dateArray[] = new int[3];
+                dateArray[0] = DayNumber;
+                dateArray[1] = CurrentMonth;
+                dateArray[2] = CurrentYear;
+                //set tag tags the day in the days list and associates the datearray with it
+                //info can be retrieved with getTag()
+                days[i-1].setTag(dateArray);
+                //setting the text to the day
+                Log.d("Set Date", "Added day "+ DayNumber +"day in array " + i );
+                days[i-1].setText(String.valueOf(DayNumber));
+                //onclick listener for each day
+                days[i-1].setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                    }
+                });
+                //increment to the next day
+                DayNumber++;
+
+            }
+        //now Setting days for the previous month shown on calendar
+        //if Janurary the previous month is december ie 0 to 11
+        //remember 11 is december
+        if(CurrentMonth == 0){
+            calendar.set(CurrentYear -1,  11, 1);
+        }
+        else{
+            calendar.set(CurrentYear, CurrentMonth -1, 1);
+
+        }
+        //getting number of days in previous month
+        int DaysInPreviousMonth = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        //if the first day of the month is thursday(5) it decrements i until 0 and fills the daays with the total number of days in the previous month -1 each loop
+        // firstdayofmonth minus 1 so it doesn't write over the first day of the current month
+        for(int i = firstDayofMonth-1; i > 0; --i ){
+            Log.d("ILS", "i is " + i+ "Days in previous months " +DaysInPreviousMonth + "Dayi-1 " );
+            //same setTag exact date thing
+            int dateArray[] = new int[3];
+            //if Janurary the previous month is december ie 0 to 11
+            //remember 11 is december
+            //if the month is janurary previous month is december
+            if(CurrentMonth == 0){
+                dateArray[0] = DaysInPreviousMonth;
+                dateArray[1] = 11;
+                dateArray[2] = ClickedYear-1;
+            }
+            else{
+                days[i-1].setBackgroundColor(Color.TRANSPARENT);
+
+                dateArray[0] = DaysInPreviousMonth;
+                dateArray[1] = ClickedMonth -1;
+                dateArray[2] = ClickedYear;
+            }
+            //because array starts from zero
+            days[i-1].setTag(dateArray);
+            days[i-1].setText(String.valueOf(DaysInPreviousMonth));
+            days[i-1].setTextColor(Color.GRAY);
+            days[i-1].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            DaysInPreviousMonth--;
+        }
+
+
+        //now creating the days after the current month
+        int DaysinNextMonth = 1;
+        //the index for the last day of the month which would be number of days in the current month
+        //plus the ones shown for the previous month
+        //loops until it reaches the total number of day objects created ie the end of the calendar
+        //6*7 == 42 so 42 days objects in total
+        Log.d("Dayafter", "days after" + DayAfterLastDayInMonth);
+        for(int i = DayAfterLastDayInMonth; i <= days.length; i++ ){
+            int[] dateArray = new int[3];
+            //for normal month
+            if(ClickedMonth < 11 ){
+                //if you click on a day in the next month it turns green
+                //else it is grey
+                if (CurrentMonth == ClickedMonth + 1
+                        && CurrentYear == ClickedYear
+                        && DaysinNextMonth == CurrentDay) {
+                    days[i-1].setBackgroundColor(Color.GREEN);
+                } else {
+                    days[i-1].setBackgroundColor(Color.TRANSPARENT);
+                }
+                dateArray[0] = DaysinNextMonth;
+                dateArray[1] = ClickedMonth + 1;
+                dateArray[2] = ClickedYear;
+            }
+            //if its december and the next month goes into the next year
+            else{
+                //11 == december
+                if (CurrentMonth == 11
+                        && CurrentYear == ClickedYear +1
+                        && DaysinNextMonth == CurrentDay) {
+                    // FF606C38 = green
+                    days[i-1].setBackgroundColor(Color.parseColor("#FF606C38"));
+                } else {
+                    days[i-1].setBackgroundColor(Color.TRANSPARENT);
+                }
+                //info to set the tag for the day
+                dateArray[0] = DaysinNextMonth;
+                dateArray[1] = 0;
+                dateArray[2] = ClickedYear + 1;
+            }
+            days[i-1].setTag(dateArray);
+            days[i-1].setTextColor(Color.GRAY);
+            days[i-1].setText(String.valueOf(DaysinNextMonth));
+            DaysinNextMonth++;
+            days[i-1].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+        }
+
+        //Setting Current Calendar Month bottom label
+
+        TextView BottomMonth = binding.CurrentMonthText;
+        BottomMonth.setTextSize(30);
+        String[] monthNames = {
+                "January", "February", "March", "April", "May", "June",
+                "July", "August", "September", "October", "November", "December"
+        };
+        String displayBottomMonth = monthNames[monthCounter] + ", " + yearCounter;
+        BottomMonth.setText(displayBottomMonth);
+
+        //if there are any tasks in the next month
+        setTasks(monthCounter, yearCounter, firstDayofMonth,days);
+
+
     }
 
 }
