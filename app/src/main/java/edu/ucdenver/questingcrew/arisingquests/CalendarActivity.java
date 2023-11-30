@@ -255,7 +255,7 @@ public class CalendarActivity extends AppCompatActivity {
         //this is just another version of firstdayofmonth so that we don't change the value of firstday of month
         int daysForFirstWeek = firstDayofMonth;
         //this is just to keep the index of the last day of the month ie the last few days of the previous month + all the days in the next month
-        int DayAfterLastDayInMonth = daysForFirstWeek+DaysInMonth;;
+        int DayAfterLastDayInMonth = daysForFirstWeek+DaysInMonth;
         int Sunday = 1;
         //sunday for readability
         int arrayIndex = daysForFirstWeek;
