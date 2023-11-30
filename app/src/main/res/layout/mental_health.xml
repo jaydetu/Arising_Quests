@@ -10,26 +10,27 @@
         android:layout_width="287dp"
         android:layout_height="48dp"
         android:layout_marginStart="60dp"
+        android:layout_marginTop="587dp"
         android:layout_marginEnd="64dp"
-        android:layout_marginBottom="104dp"
+        android:layout_marginBottom="96dp"
         android:layout_weight="1"
+        android:gravity="center"
         android:text="@string/home"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/toolbarMain" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbarMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="1dp"
-        android:layout_marginTop="1dp"
-        android:layout_marginEnd="1dp"
         android:background="?attr/colorPrimary"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="1dp" />
 
     <Button
         android:id="@+id/take_this_btn"
@@ -37,12 +38,12 @@
         android:layout_height="66dp"
         android:layout_marginStart="123dp"
         android:layout_marginEnd="124dp"
+        android:layout_marginBottom="53dp"
         android:text="@string/take_this"
+        app:layout_constraintBottom_toTopOf="@+id/mentalHealthCardButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="229dp" />
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/mentalHealthCardButton"
@@ -50,12 +51,12 @@
         android:layout_height="63dp"
         android:layout_marginStart="122dp"
         android:layout_marginEnd="122dp"
+        android:layout_marginBottom="44dp"
         android:text="@string/mental_health_card"
+        app:layout_constraintBottom_toTopOf="@+id/lifeLineButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="349dp" />
+        tools:ignore="MissingConstraints" />
 
     <Button
         android:id="@+id/lifeLineButton"
@@ -63,23 +64,26 @@
         android:layout_height="85dp"
         android:layout_marginStart="123dp"
         android:layout_marginEnd="121dp"
+        android:layout_marginBottom="41dp"
         android:text="@string/_988_suicide_lifeline"
+        app:layout_constraintBottom_toTopOf="@+id/homeButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="0.468"
         app:layout_constraintStart_toStartOf="parent"
-        tools:ignore="MissingConstraints"
-        tools:layout_editor_absoluteY="460dp" />
+        tools:ignore="MissingConstraints" />
 
     <TextView
         android:id="@+id/mentalHealthTextView"
         android:layout_width="218dp"
         android:layout_height="44dp"
-        android:layout_marginStart="96dp"
-        android:layout_marginTop="74dp"
-        android:layout_marginEnd="97dp"
+        android:layout_marginStart="112dp"
+        android:layout_marginTop="64dp"
+        android:layout_marginEnd="113dp"
+        android:layout_marginBottom="63dp"
         android:text="@string/mental_resources"
         android:textSize="32sp"
         android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/take_this_btn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/toolbarMain"

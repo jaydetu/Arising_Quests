@@ -19,7 +19,12 @@ public class MentalHealth extends AppCompatActivity {
 
         Button homeButton = findViewById(R.id.homeButton);
 
-        homeButton.setOnClickListener(view -> setContentView(R.layout.activity_main));
+        homeButton.setOnClickListener(view -> {
+            Intent intent = new Intent(MentalHealth.this, MainActivity.class);
+
+            startActivity(intent);
+            finish();
+        });
 
         Button takelinkbtn = findViewById(R.id.take_this_btn);
         Button cardlinkbtn = findViewById(R.id.mentalHealthCardButton);
