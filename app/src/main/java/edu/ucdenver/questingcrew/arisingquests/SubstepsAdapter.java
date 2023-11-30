@@ -49,10 +49,8 @@ public class SubstepsAdapter extends RecyclerView.Adapter<SubstepsAdapter.ListIt
 
     @Override
     public void onBindViewHolder(@NonNull ListItemHolder holder, int position) {
-        if (substepList != null) {
-            Substep substep = substepList[position];
-            holder.textViewSubstepName.setText(substep.getStep());
-        }
+        Substep substep = substepList[position];
+        holder.textViewSubstepName.setText(substep.getStep());
     }
 
     @Override
@@ -63,6 +61,7 @@ public class SubstepsAdapter extends RecyclerView.Adapter<SubstepsAdapter.ListIt
     // get new substep list to update recycler
     public void updateItemList(Substep[] changedSubsteps){
         substepList = changedSubsteps;
+        Log.i("info", "adapter list length " + substepList.length);
     }
 
     public class ListItemHolder extends RecyclerView.ViewHolder implements View.OnClickListener {

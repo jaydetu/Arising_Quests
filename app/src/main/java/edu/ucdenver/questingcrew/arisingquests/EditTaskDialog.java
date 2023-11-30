@@ -187,8 +187,6 @@ public class EditTaskDialog extends DialogFragment {
             addStep(substep3);
         }
         if (editingTask) {
-            substepList = taskDatabase.substepDao().getTaskSubsteps(currentTaskID);
-            substepAdapter.updateItemList(substepList);
             setTask();
         }
         return builder.create();
@@ -275,6 +273,16 @@ public class EditTaskDialog extends DialogFragment {
         binding.radioButtonLow.setChecked(false);
         binding.textInputDueDate.setText("");
         binding.textInputDescription.setText("");
+        Substep step;
+        for (int i=0; i<substepList.length; i++){
+            step = substepList[i];
+            taskDatabase.substepDao().deleteSubstep(step);
+        }
+        substepList = new Substep[0];
+        Log.i("info", "substep list length " + substepList.length);
+        substepAdapter.updateItemList(substepList);
+        substepAdapter.notifyDataSetChanged();
+
     }
 
     // populate existing task details if editing a Task
@@ -292,7 +300,9 @@ public class EditTaskDialog extends DialogFragment {
             binding.radioButtonLow.setChecked(true);
         }
 
+        substepList = taskDatabase.substepDao().getTaskSubsteps(currentTaskID);
+        if (substepList != null) {
+            substepAdapter.updateItemList(substepList);
+        }
     }
-
-
 }
