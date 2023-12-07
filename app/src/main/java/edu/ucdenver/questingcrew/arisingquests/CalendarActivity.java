@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
+import java.util.Locale;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -23,6 +23,18 @@ import java.util.Objects;
 import edu.ucdenver.questingcrew.arisingquests.databinding.ActivityCalendarBinding;
 
 
+/*
+Author Andrew Austin
+Calendar activity class
+MenuItem click is the tool bar with the X and +
+add task currently doesnt work
+Oncreate method populates the calendar with buttons and formats everything with color size etc for things that aren't described in xml
+Settasks loops through all the days currently shown on the calendar and highlights them with a color if they have a task based on the task's priority
+exittask is just the implementation for the X button in the tool bar
+AssignDays is for the back and next month buttons
+AssignDays is called after the calendar date is changed. It pretty much just recreates the entire calendar but in the new month because before it was called the date was changed.
+AssignDays doesn't redo everything just the buttons on the calendar then it calls SetTasks again to color the days with tasks.
+ */
 public class CalendarActivity extends AppCompatActivity {
 
     private ActivityCalendarBinding binding;
@@ -134,53 +146,93 @@ public class CalendarActivity extends AppCompatActivity {
         int firstDayofMonth = calendar.get(Calendar.DAY_OF_WEEK);
 
 
-        //returning the calednar to the current day
+        //returning the calendar to the current day
         calendar = Calendar.getInstance();
 
         Log.d("CurrentDay", "CurrentDAY: " + CurrentDay + "Current Month" + CurrentMonth + "Current Year " + CurrentYear + "First Day of week month" + firstDayofMonth);
-
-
-
 
         //Making the Month and Current Day header at the Top
         TextView DateHeader = binding.DateHeader;
         //to store day
         String TextCurrentDay;
-        //switch statement coverting day numbers into days ie 0 = sunday
-        switch (CurrentDayofWeek) {
-            case 1:
-                TextCurrentDay = "Sunday";
-                break;
-            case 2:
-                TextCurrentDay = "Monday";
-                break;
-            case 3:
-                TextCurrentDay = "Tuesday";
-                break;
-            case 4:
-                TextCurrentDay = "Wednesday";
-                break;
-            case 5:
-                TextCurrentDay = "Thursday";
-                break;
-            case 6:
-                TextCurrentDay = "Friday";
-                break;
-            case 7:
-                TextCurrentDay = "Saturday";
-                break;
-            default:
-                TextCurrentDay = "Error";
-        }
 
         //now using  switch statement to convert the month numbers into Strings
         String TextCurrentMonth;
 
-        String[] monthNames = {
-                "January", "February", "March", "April", "May", "June",
-                "July", "August", "September", "October", "November", "December"
-        };
-        TextCurrentMonth = monthNames[CurrentMonth];
+        //what language it is currently in
+        Locale currentLocale = getResources().getConfiguration().locale;
+
+
+        if (currentLocale.getLanguage().equals("en")) {
+
+            //switch statement coverting day numbers into days ie 0 = sunday
+            switch (CurrentDayofWeek) {
+                case 1:
+                    TextCurrentDay = "Sunday";
+                    break;
+                case 2:
+                    TextCurrentDay = "Monday";
+                    break;
+                case 3:
+                    TextCurrentDay = "Tuesday";
+                    break;
+                case 4:
+                    TextCurrentDay = "Wednesday";
+                    break;
+                case 5:
+                    TextCurrentDay = "Thursday";
+                    break;
+                case 6:
+                    TextCurrentDay = "Friday";
+                    break;
+                case 7:
+                    TextCurrentDay = "Saturday";
+                    break;
+                default:
+                    TextCurrentDay = "Error";
+            }
+
+            String[] monthNames = {
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+            };
+            TextCurrentMonth = monthNames[CurrentMonth];
+        }
+        else{
+            switch (CurrentDayofWeek) {
+                case 1:
+                    TextCurrentDay = "Domingo";
+                    break;
+                case 2:
+                    TextCurrentDay = "Lunes";
+                    break;
+                case 3:
+                    TextCurrentDay = "Martes";
+                    break;
+                case 4:
+                    TextCurrentDay = "Miercoles";
+                    break;
+                case 5:
+                    TextCurrentDay = "Jueves";
+                    break;
+                case 6:
+                    TextCurrentDay = "Viernes";
+                    break;
+                case 7:
+                    TextCurrentDay = "Sabado";
+                    break;
+                default:
+                    TextCurrentDay = "Error";
+            }
+
+
+
+            String[] monthNames = {
+                    "Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio",
+                    "Julio", "Augusto", "Septiembre", "Octubre", "Noviembre", "Diciembre"
+            };
+            TextCurrentMonth = monthNames[CurrentMonth];
+        }
         //displaying the date header
         String HeaderString = TextCurrentDay + ", " + TextCurrentMonth + " " + CurrentDay + ", " + CurrentYear;
         DateHeader.setText(HeaderString);
@@ -190,7 +242,7 @@ public class CalendarActivity extends AppCompatActivity {
         BottomMonth.setTextSize(30);
         BottomMonth.setText(String.valueOf(monthCounter));
         //array of months
-        String displayBottomMonth = monthNames[CurrentMonth] + ", " + CurrentYear;
+        String displayBottomMonth = TextCurrentMonth + ", " + CurrentYear;
         // Setting the month text based on the current month
         BottomMonth.setText(displayBottomMonth);
 
@@ -235,8 +287,7 @@ public class CalendarActivity extends AppCompatActivity {
                     calendar.set(Calendar.MONTH, monthCounter);
                 }
                 //restarting activity
-                finish();
-                startActivity(getIntent());
+                assignDays( monthCounter,yearCounter, days);
             }
         });
 
