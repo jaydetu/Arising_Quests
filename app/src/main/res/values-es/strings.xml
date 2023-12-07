@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Arising Quests</string>
+    <string name="importance_high">Alto</string>
+    <string name="importance_mid">Medio</string>
+    <string name="importance_low">Bajo</string>
+    <string name="due_date">Fecha de vencimiento</string>
+    <string name="description">Descripción</string>
+    <string name="cancel">Cancelar</string>
+    <string name="save">Guarde</string>
+    <string name="title">Título (Requerido)</string>
+    <string name="importance">Importancia</string>
+    <string name="edit_task_header">Tarea</string>
+    <string name="add_substeps">Agregar subpaso</string>
+    <string name="enter_step">Ingrese el subpaso</string>
+    <string name="add">Agregar</string>
+    <string name="Clear">Claro</string>
+    <string name="lifeLineImg">Línea de vida</string>
+    <string name="cardImg">Imagen de la tarjeta</string>
+    <string name="takeThisimg">Toma esta imagen</string>
+    <string name="_988_suicide_lifeline">988 Línea de vida del suicidio</string>
+    <string name="mental_health_card">tarjeta de salud mental</string>
+    <string name="take_this">Toma esto</string>
+    <string name="_988_lifeline">988 Línea de vida del suicidio</string>
+    <string name="Sunday">Do</string>
+    <string name="Monday">Lu</string>
+    <string name="Tuesday">Ma</string>
+    <string name="Wednesday">Me</string>
+    <string name="Thursday">Ju</string>
+    <string name="Friday">Vi</string>
+    <string name="Saturday">Sá</string>
+    <string name="mental_resources">salud mental</string>
+    <string name="home">Casa</string>
+</resources>
