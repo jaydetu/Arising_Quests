@@ -20,7 +20,7 @@ public class MentalHealth extends AppCompatActivity {
         Button homeButton = findViewById(R.id.homeButton);
 
         homeButton.setOnClickListener(view -> {
-            Intent intent = new Intent(MentalHealth.this, MainActivity.class);
+            Intent intent = new Intent(this, MainActivity.class);
 
             startActivity(intent);
             finish();

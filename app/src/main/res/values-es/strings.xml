@@ -31,4 +31,8 @@
     <string name="Saturday">Sá</string>
     <string name="mental_resources">salud mental</string>
     <string name="home">Casa</string>
+    <string name="create_task">Crear Tarea</string>
+    <string name="view_mental_health">Ver Lista de Salud Mental</string>
+    <string name="view_calendar">Ver Calendario de Tareas</string>
+    <string name="edit_task_final">Editar Tarea: Estudio para el final</string>
 </resources>

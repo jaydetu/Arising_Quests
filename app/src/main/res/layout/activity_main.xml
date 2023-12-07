@@ -29,25 +29,25 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="goToEditTask"
-            android:text="Create New Task" />
+            android:text="@string/create_task" />
         <Button
             android:id="@+id/mentalHealthButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="goToMentalHealth"
-            android:text="Go to Mental Health View" />
+            android:text="@string/view_mental_health" />
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="goToCalendarTask"
-            android:text="View Task Calendar" />
+            android:text="@string/view_calendar" />
         <Button
             android:id="@+id/editButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="editTask1"
-            android:text="Edit Task: Study for Final"/>
+            android:text="@string/edit_task_final"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,6 +32,10 @@
     <string name= "Friday">Fr</string>
     <string name= "Saturday">Sa</string>
     <string name="mental_resources">Mental Health</string>
+    <string name="create_task">Create New Task</string>
+    <string name="view_mental_health">Go to Mental Health View</string>
+    <string name="view_calendar">View Task Calendar</string>
+    <string name="edit_task_final">Edit Task: Study for Final</string>
     <string name="home">Home</string>
 
 </resources>
